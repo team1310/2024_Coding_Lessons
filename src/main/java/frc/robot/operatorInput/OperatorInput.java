@@ -28,7 +28,12 @@ public class OperatorInput extends SubsystemBase {
     /*
      * Any command where operator input is required will need to get functional instructions from the controller
      */
-    public double getDriveSpeed() {
+    public double getLeftSpeed() {
+        double stickValue = driverController.getLeftY();
+        return stickValue;
+    }
+
+    public double getRightSpeed() {
         double stickValue = driverController.getRightY();
         return stickValue;
     }
