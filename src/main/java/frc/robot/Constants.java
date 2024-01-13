@@ -15,6 +15,7 @@ public final class Constants {
     }
 
     public static class DriveConstants {
-        public static final int LEFT_MOTOR_PORT = 10;
+        public static final int LEFT_MOTOR_PORT  = 10;
+        public static final int RIGHT_MOTOR_PORT = 20;
     }
 }
