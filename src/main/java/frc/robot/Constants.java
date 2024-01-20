@@ -18,4 +18,10 @@ public final class Constants {
         public static final int LEFT_MOTOR_PORT  = 10;
         public static final int RIGHT_MOTOR_PORT = 20;
     }
+
+    public static class LightsConstants {
+        public static final int LED_STRING_LENGTH = 60;
+        public static final int LED_PWM_PORT      = 9;
+    }
+
 }

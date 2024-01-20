@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.ConstantsForLights.LightsConstants;
+import frc.robot.Constants.LightsConstants;
 
 public class LightsSubsystem extends SubsystemBase {
 
@@ -13,9 +13,8 @@ public class LightsSubsystem extends SubsystemBase {
     private final AddressableLED       ledStrip;
     private final AddressableLEDBuffer ledBuffer;
 
-    private static final Color         TEST_COLOR = new Color(40, 40, 40); // RGB
+    private static final Color         TEST_COLOR = new Color(30, 30, 30); // RGB
 
-    /** Creates a new DriveSubsystem. */
     public LightsSubsystem() {
 
         ledStrip  = new AddressableLED(LightsConstants.LED_PWM_PORT);
@@ -27,12 +26,12 @@ public class LightsSubsystem extends SubsystemBase {
         ledStrip.start();
 
         // Run the test pattern
-        setTestPattern();
+        setColor(TEST_COLOR);
     }
 
-    private void setTestPattern() {
+    private void setColor(Color color) {
         for (int pixel = 0; pixel < ledBuffer.getLength(); pixel++) {
-            setPixel(pixel, TEST_COLOR);
+            setPixel(pixel, color);
         }
     }
 
@@ -47,6 +46,9 @@ public class LightsSubsystem extends SubsystemBase {
     public void periodic() {
         // Update the buffer every loop
         ledStrip.setData(ledBuffer);
+
+
+
     }
 
 }

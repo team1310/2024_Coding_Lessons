@@ -2,7 +2,9 @@ package frc.robot.operatorInput;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorInputConstants;
+import frc.robot.commands.drive.DriveForTimeCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -21,21 +23,22 @@ public class OperatorInput extends SubsystemBase {
      */
     public void configureBindings(DriveSubsystem driveSubsystem) {
 
-        // Configure button bindings to commands by declaring new Triggers
-        // Triggers automatically get checked every loop.
+        new Trigger(() -> driverController.getAButton())
+            .onTrue(
+                new DriveForTimeCommand(2, .2, driveSubsystem));
     }
 
     /*
      * Any command where operator input is required will need to get functional instructions from the controller
      */
     public double getLeftSpeed() {
-        double stickValue = driverController.getLeftY();
-        return stickValue;
+        double speed = -driverController.getLeftY();
+        return speed;
     }
 
     public double getRightSpeed() {
-        double stickValue = driverController.getRightY();
-        return stickValue;
+        double speed = -driverController.getRightY();
+        return speed;
     }
 
     @Override
