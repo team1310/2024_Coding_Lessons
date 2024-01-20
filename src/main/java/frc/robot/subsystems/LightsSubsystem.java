@@ -19,7 +19,7 @@ public class LightsSubsystem extends SubsystemBase {
 
     // RSL tracker
     private boolean                    previousRSLOn = false;
-    private int                        rslSyncCount  = 0;
+    private int                        rslSyncCount  = -1;
 
     public LightsSubsystem() {
 
