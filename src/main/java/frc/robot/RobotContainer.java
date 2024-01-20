@@ -9,6 +9,7 @@ import frc.robot.commands.auto.AutoCommand;
 import frc.robot.commands.drive.DefaultDriveCommand;
 import frc.robot.operatorInput.OperatorInput;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.LightsSubsystem;
 
 /**
  * This class is where the robot subsystem are declared.
@@ -18,10 +19,11 @@ import frc.robot.subsystems.DriveSubsystem;
 public class RobotContainer {
 
     // Declare the operator input class
-    private final OperatorInput  operatorInput  = new OperatorInput();
+    private final OperatorInput   operatorInput   = new OperatorInput();
 
     // Declare all subsystems.
-    private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+    private final LightsSubsystem lightsSubsystem = new LightsSubsystem();
+    private final DriveSubsystem  driveSubsystem  = new DriveSubsystem();
 
 
     /**
@@ -46,5 +48,9 @@ public class RobotContainer {
 
         // Pass all subsystems to the auto constructor.
         return new AutoCommand(driveSubsystem);
+    }
+
+    public void robotEnabledInit() {
+        lightsSubsystem.robotEnabled();
     }
 }

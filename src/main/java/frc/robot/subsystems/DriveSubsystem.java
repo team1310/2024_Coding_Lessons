@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -66,5 +67,11 @@ public class DriveSubsystem extends SubsystemBase {
         // error = desiredValue (setpoint) - actualValue (measurement)
 
         return 0;
+    }
+
+    @Override
+    public void periodic() {
+
+        SmartDashboard.putData("Gyro", navXGyro);
     }
 }
