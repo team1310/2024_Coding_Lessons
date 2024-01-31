@@ -5,13 +5,18 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.drive.DriveOnHeadingCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
 public final class AutoCommand extends SequentialCommandGroup {
 
     public AutoCommand(DriveSubsystem driveSubsystem) {
 
-        // FIXME add some commands
-        // addCommands(new Command());
+        System.out.println("Auto Command scheduled");
+        addCommands(new DriveOnHeadingCommand(0, 1, 0.5, driveSubsystem)
+            .andThen(
+                new DriveOnHeadingCommand(315, 1.4, -0.5, driveSubsystem))
+            .andThen(
+                new DriveOnHeadingCommand(0, 1, 0.5, driveSubsystem)));
     }
 }

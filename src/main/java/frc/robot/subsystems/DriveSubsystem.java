@@ -5,7 +5,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,15 +19,15 @@ public class DriveSubsystem extends SubsystemBase {
     /*
      * Drive Motors
      */
-    private final TalonSRX leftMotor   = new TalonSRX(DriveConstants.LEFT_MOTOR_PORT);
-    private final TalonSRX leftMotor2  = new TalonSRX(DriveConstants.LEFT_MOTOR_PORT + 1);
-    private final TalonSRX rightMotor  = new TalonSRX(DriveConstants.RIGHT_MOTOR_PORT);
-    private final TalonSRX rightMotor2 = new TalonSRX(DriveConstants.RIGHT_MOTOR_PORT + 1);
+    private final TalonSRX  leftMotor   = new TalonSRX(DriveConstants.LEFT_MOTOR_PORT);
+    private final TalonSRX  leftMotor2  = new TalonSRX(DriveConstants.LEFT_MOTOR_PORT + 1);
+    private final TalonSRX  rightMotor  = new TalonSRX(DriveConstants.RIGHT_MOTOR_PORT);
+    private final VictorSPX rightMotor2 = new VictorSPX(DriveConstants.RIGHT_MOTOR_PORT + 1);
 
     /*
      * Gyro
      */
-    private AHRS           navXGyro    = new AHRS();
+    private AHRS            navXGyro    = new AHRS();
 
     /**
      * Place all initialization code in the constructor
@@ -36,7 +38,13 @@ public class DriveSubsystem extends SubsystemBase {
          */
         leftMotor.setInverted(true);
         leftMotor2.setInverted(true);
+
+        leftMotor.setNeutralMode(NeutralMode.Brake);
+        leftMotor2.setNeutralMode(NeutralMode.Brake);
+        rightMotor.setNeutralMode(NeutralMode.Brake);
+        rightMotor2.setNeutralMode(NeutralMode.Brake);
     }
+
 
     public void setDriveSpeed(double leftSpeed, double rightSpeed) {
 
@@ -59,19 +67,25 @@ public class DriveSubsystem extends SubsystemBase {
         return yaw;
     }
 
-    public double getHeadingError(double desiredHeading) {
+    public double getHeadingError(double desiredHeading, double currentHeading) {
 
+        double error = (desiredHeading - currentHeading) % 360;
+        if (error > 180) {
+            error -= 360;
+        }
+        return error;
         // FIXME: calcuate the heading error based on the desired heading
         // by convention, when calculating the error for a PID feedback
         // loop the formula for error is:
         // error = desiredValue (setpoint) - actualValue (measurement)
-
-        return 0;
     }
 
     @Override
     public void periodic() {
 
-        SmartDashboard.putData("Gyro", navXGyro);
+        SmartDashboard.putNumber("Gyro", getHeading());
     }
+
+
+
 }
